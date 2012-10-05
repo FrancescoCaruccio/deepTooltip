@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Francesco Caruccio - www.caruccioweb.net">
+    <title>DeepTooltip - a simple jQuery plugin to show Tooltip</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="deepTooltip-1.0.js"></script>
+</head>
+<body>
+<h1>DeepTooltip DEMO</h1>
+<p>Questo è un testo con un <span class="deepTooltip"><span class="deepTooltipInner" style="display: none;">asdasdasds</span>tooltip</span></p>
+<script type="text/javascript">
+    $(function(){
+        jQuery('span.deepTooltip').deepTooltip();
+    });
+</script>
+</body>
+</html>
