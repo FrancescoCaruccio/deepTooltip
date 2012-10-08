@@ -6,48 +6,65 @@
  * Dual licensed under the MIT and GPL licenses.
  * http://jquery.malsup.com/license.html
  * Requires: jQuery v1.7.1 or later
- *
- * TODO: ero arrivato a
- * http://www.consulenza-web.com/2012/01/struttura-di-un-plugin-jquery/
- * "Rispondere ai diversi tipi di input"
- *
  */
 
-;(function( $ ) {
+;(function($) {
 
-    var __loop = function() {
+    $.fn.deepTooltip = function(options) {
 
-        $(this).fadeOut().fadeIn();
+        var defaults = {
+            activation:         'hover',
+            animation:          null,
+            speed:              null,
+            delay:              null,
+            width:              'auto',
+            arrowElement:       'span',
+            arrow:              'bottom'
+        };
 
-    };
+        $.extend(defaults, options);
+        var $this = $(this);
+        var $dTip = $('.deepTooltipInner', this);
+        var $dTipHeight = $dTip.outerHeight();
+        var $dTipWidth = $dTip.outerWidth();
 
-    $.fn.deepTooltip = function() {
+        var $hCounter = 0;
 
-        // Proprietà di configurazione interna.
-        var cfg = false;
+        $('.deepTooltip').on('hover', function(){
+            $hCounter++;
+            $dTip.css({
+                'width':            defaults.width
+            });
+            $this.on('mousemove', function(e){
+                $dTip.css({
+                    'left':         e.pageX,
+                    'top':          e.pageY
+                });
+            });
 
-        // Estendo la proprietà di configurazione con l'oggetto di
-        // configurazione contenuto nel primo parametro del plugin.
-        if ( !arguments.length || $.isPlainObject(arguments[0]) ) {
-
-            cfg = $.extend({},{
-                color: 'black'
-            },arguments[0]);
-
-            fra = {
-                position:   'fixed'
+            var html = '<' + defaults.arrowElement + ' class="' + defaults.arrow + '"></' + defaults.arrowElement +'>';
+            var inner = $dTip[0];
+            if($hCounter == 1){
+                inner.innerHTML += html;
             }
 
-            $.extend(cfg, fra);
+            switch(defaults.animation) {
+                default:
+                    $dTip.toggle();
+                    console.log('toggle');
+                    break;
+                case    'fade':
+                    $dTip.fadeToggle(defaults.speed);
+                    console.log('fade');
+                    break;
+                case    'slide':
+                    $dTip.slideToggle(defaults.speed);
+                    console.log('slide');
+                    break;
+            }
 
-        }
-
-        console.log(cfg);
-
-        $(this).each(__loop,[cfg]);
-
-        return this;
+        });
 
     };
 
-})( jQuery );
+})($);

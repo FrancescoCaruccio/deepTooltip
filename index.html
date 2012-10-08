@@ -8,11 +8,27 @@
     <script type="text/javascript" src="deepTooltip-1.0.js"></script>
 </head>
 <body>
+<style type="text/css">
+    .deepTooltipInner{
+        display: none;
+        position: absolute;
+        padding: 10px;
+        background: #b9d8ff;
+    }
+</style>
 <h1>DeepTooltip DEMO</h1>
-<p>Questo è un testo con un <span class="deepTooltip"><span class="deepTooltipInner" style="display: none;">asdasdasds</span>tooltip</span></p>
+<p>Questo è un testo con un <span class="deepTooltip">
+    <span class="deepTooltipInner" style="display: none;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>tooltip</span>
+</p>
+
+<button type="button">Se serve, son qui!</button>
+
 <script type="text/javascript">
     $(function(){
-        jQuery('span.deepTooltip').deepTooltip();
+        jQuery('span.deepTooltip').deepTooltip({
+            width:      '400px',
+            arrow:      'pappappero'
+        });
     });
 </script>
 </body>
