@@ -2,7 +2,7 @@
  * jQuery Deep Scroll Plugin
  * Examples and documentation at: http://goo.gl/YhS7J
  * Developed by 2012 Francesco Caruccio
- * Version: 1.1 (25-SEP-2012)
+ * Version: 1.1 (08-OCT-2012)
  * Dual licensed under the MIT and GPL licenses.
  * http://jquery.malsup.com/license.html
  * Requires: jQuery v1.7.1 or later
@@ -24,42 +24,55 @@
 
         $.extend(defaults, options);
         var $this = $(this);
-        var $dTip = $('.deepTooltipInner', this);
-        var $dTipHeight = $dTip.outerHeight();
-        var $dTipWidth = $dTip.outerWidth();
-
         var $hCounter = 0;
 
         $('.deepTooltip').on('hover', function(){
+            var $dTip = $('.deepTooltipInner', this);
             $hCounter++;
             $dTip.css({
                 'width':            defaults.width
             });
+            var $dTipOWidth = $dTip.outerWidth(true);
+            var $dTipOHeight = $dTip.outerHeight(true);
             $this.on('mousemove', function(e){
-                $dTip.css({
-                    'left':         e.pageX,
-                    'top':          e.pageY
-                });
+
+                if($dTipOHeight > e.pageY){
+                    $dTip.css({
+                        'top':          e.pageY+30
+                    });
+                }
+                else{
+                    $dTip.css({
+                        'top':          e.pageY-($dTipOHeight+30)
+                    });
+                }
+                if($dTipOWidth/2 > e.pageX){
+                    $dTip.css({
+                        'left':          e.pageX+30
+                    });
+                }
+                else{
+                    $dTip.css({
+                        'left':          e.pageX-($dTipOWidth/2)
+                    });
+                }
             });
 
-            var html = '<' + defaults.arrowElement + ' class="' + defaults.arrow + '"></' + defaults.arrowElement +'>';
-            var inner = $dTip[0];
-            if($hCounter == 1){
+            if(!$(this).children('.deepTooltipInner').children('span').length > 0){
+                var html = '<' + defaults.arrowElement + ' class="deepArrow' + defaults.arrow + '"></' + defaults.arrowElement +'>';
+                var inner = $dTip[0];
                 inner.innerHTML += html;
             }
 
             switch(defaults.animation) {
                 default:
-                    $dTip.toggle();
-                    console.log('toggle');
+                    $dTip.stop(true,true).toggle(defaults.speed);
                     break;
                 case    'fade':
-                    $dTip.fadeToggle(defaults.speed);
-                    console.log('fade');
+                    $dTip.stop(true,true).fadeToggle(defaults.speed);
                     break;
                 case    'slide':
-                    $dTip.slideToggle(defaults.speed);
-                    console.log('slide');
+                    $dTip.stop(true,true).slideToggle(defaults.speed);
                     break;
             }
 

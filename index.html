@@ -14,11 +14,39 @@
         position: absolute;
         padding: 10px;
         background: #b9d8ff;
+        font-weight: normal;
+        max-width: 450px;
+    }
+    .deepTooltip{
+        font-weight: bold;
+        padding: 5px;
+        background: #e6e593;
+    }
+    span.deepArrowbottom{
+        width: 10px;
+        height: 10px;
+        display: block;
+        background: #b9d8ff;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        margin-left:-5px;
     }
 </style>
 <h1>DeepTooltip DEMO</h1>
+<br />
+<br />
+<br />
 <p>Questo è un testo con un <span class="deepTooltip">
-    <span class="deepTooltipInner" style="display: none;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>tooltip</span>
+    <span class="deepTooltipInner" style="display: none;">Lorem Iluding versions of Lorem Ipsum.</span>tooltip</span>
+</p>
+<br />
+<br />
+<br /><br />
+<br />
+<br />
+<p style="padding-left:400px;">Questo è un testo con un <span class="deepTooltip">
+    <span class="deepTooltipInner" style="display: none;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>tooltip 2!!!</span>
 </p>
 
 <button type="button">Se serve, son qui!</button>
@@ -26,8 +54,7 @@
 <script type="text/javascript">
     $(function(){
         jQuery('span.deepTooltip').deepTooltip({
-            width:      '400px',
-            arrow:      'pappappero'
+            speed:      130
         });
     });
 </script>
