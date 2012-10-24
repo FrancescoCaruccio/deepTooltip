@@ -17,16 +17,17 @@
             animation:          null,
             speed:              null,
             delay:              null,
-            width:              'auto',
+            width:              200,
             arrowElement:       'span',
-            arrow:              'bottom'
+            arrow:              'bottom',
+            followCursor:       false
         };
 
         $.extend(defaults, options);
         var $this = $(this);
         var $hCounter = 0;
 
-        $('.deepTooltip').on('hover', function(){
+        $(this).on('hover', function(){
             var $dTip = $('.deepTooltipInner', this);
             $hCounter++;
             $dTip.css({
@@ -34,34 +35,48 @@
             });
             var $dTipOWidth = $dTip.outerWidth(true);
             var $dTipOHeight = $dTip.outerHeight(true);
-            $this.on('mousemove', function(e){
-
-                if($dTipOHeight > e.pageY){
-                    $dTip.css({
-                        'top':          e.pageY+30
-                    });
-                }
-                else{
-                    $dTip.css({
-                        'top':          e.pageY-($dTipOHeight+30)
-                    });
-                }
-                if($dTipOWidth/2 > e.pageX){
-                    $dTip.css({
-                        'left':          e.pageX+30
-                    });
-                }
-                else{
-                    $dTip.css({
-                        'left':          e.pageX-($dTipOWidth/2)
-                    });
-                }
-            });
 
             if(!$(this).children('.deepTooltipInner').children('span').length > 0){
                 var html = '<' + defaults.arrowElement + ' class="deepArrow' + defaults.arrow + '"></' + defaults.arrowElement +'>';
                 var inner = $dTip[0];
                 inner.innerHTML += html;
+            }
+
+            if(defaults.followCursor == true){
+
+                $this.on('mousemove', function(e){
+
+                    if($dTipOHeight > e.pageY){
+                        $dTip.css({
+                            'top':          e.pageY+30
+                        });
+                    }
+                    else{
+                        $dTip.css({
+                            'top':          e.pageY-($dTipOHeight+30)
+                        });
+                    }
+                    if($dTipOWidth/2 > e.pageX){
+                        $dTip.css({
+                            'left':          e.pageX+30
+                        });
+                    }
+                    else{
+                        $dTip.css({
+                            'left':          e.pageX-($dTipOWidth/2)
+                        });
+                    }
+                });
+
+            }
+            else{
+                $(this).css({
+                    position:       'relative'
+                });
+                $dTip.css({
+                    bottom:             $(this).outerHeight()+$(this).find('> span > span').outerHeight(),
+                    marginLeft:         -($dTip.outerWidth()-$(this).outerWidth())/2
+                });
             }
 
             switch(defaults.animation) {
